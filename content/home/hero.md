@@ -35,13 +35,13 @@ hero_media = "mario.jpg"
 #   Remove a link/note by deleting a cta/note block.
 [btn]
   url = "/authors/admin"
-  label = "Know more"
+  label = "About Me"
   
 [btn_alt]
   url = "#contact"
   label = "Contact me"
 
 +++
-## My name is **Mario Mingarro** and I'm a **phD student** specializing in **Climate change and protected areas**
+## My name is **Mario Mingarro** and the aim of my research is to study how **climate change** and **land use** can affect **protected areas**
 
-Let's know something
+Let's go there
