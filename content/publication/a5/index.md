@@ -17,7 +17,7 @@ publication: In *Environmental Conservation*
 publication_short: In *EC*
 publication_types:
 - "2"
-publishDate: "021-05-06T00:00:00Z"
+publishDate: "2021-05-06T00:00:00Z"
 summary: Protected areas (PAs) are intended to preserve natural places, aiming to sustain ecosystem functionality and preserve biodiversity. However, PAs are spatially static, while major threats to biodiversity, such as climate and land-use change, are dynamic.
 tags:
 - Source Themes
