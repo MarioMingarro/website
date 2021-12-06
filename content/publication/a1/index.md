@@ -22,8 +22,8 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*Journal of Source Themes, 1*(1)'
-publication_short: ""
+publication: In *Animal Biodiversity and Conservation*
+publication_short: In *ABC*
 publication_types:
 - "2"
 publishDate: "2018-01-01T00:00:00Z"
