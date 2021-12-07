@@ -31,7 +31,7 @@ Plotting Canary islands shapefile
 ```{r, warning=FALSE}
 plot(shp.can)
 ```
-{{< figure src="/img/posts/canary_shp.shp">}}
+{{< figure src="/img/posts/canary_shp.jpeg">}}
 
 Plotting Digital Elevation Model
 ```{r, warning=FALSE}
@@ -40,7 +40,7 @@ plot(elevation)
 plot(shp.can, add=TRUE)
 
 ```
-{{< figure src="/img/posts/canary_elev.shp">}}
+{{< figure src="/img/posts/canary_elev.jpeg">}}
 
 Now let's see what we have come to see in this post.
 
@@ -51,7 +51,7 @@ elev_crop <- crop(elevation, shp.can)
 plot(elev_crop)
 
 ```
-{{< figure src="/img/posts/crop.shp">}}
+{{< figure src="/img/posts/crop.jpeg">}}
 
 Mask function
 
@@ -59,7 +59,7 @@ Mask function
 elev_mask <- mask(elevation, shp.can)
 plot(elev_mask)
 ```
-{{< figure src="/img/posts/mask.shp">}}
+{{< figure src="/img/posts/mask.jpeg">}}
 
 However, it is very important to emphasise that when working with large rasters the mask function is not well implemented and often takes a long time. Therefore, I always recommend using the crop function before the mask function.
 
