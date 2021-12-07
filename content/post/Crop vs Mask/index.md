@@ -4,7 +4,7 @@ external_link: null
 image:
   caption: Canary
   focal_point: Smart
-summary: Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, eius.
+summary: Learn about R
 tags:
 - Demo
 - robotics
