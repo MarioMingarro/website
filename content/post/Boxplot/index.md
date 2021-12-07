@@ -130,8 +130,10 @@ cadiz <-
     legend.title = element_blank(),
     axis.title.x = element_blank(),
     axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
     axis.title.y = element_blank(),
-    axis.ticks.x = element_blank()
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
   )
 
 ggarrange(navacerrada, cadiz, common.legend = TRUE, legend = "bottom")
