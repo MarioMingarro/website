@@ -19,7 +19,9 @@ library(tidyverse)
 library(PupillometryR)
 library(climaemet)
 library(ggpubr)
-
+```
+Download monthly mean of the maximun tmperatures using climaemet (see https://ropenspain.github.io/climaemet/index.html)
+```{r, warning=FALSE}
 aemet_api_key("YOUR API", 
               install = TRUE)
 
@@ -123,7 +125,7 @@ ggarrange(navacerrada, cadiz, common.legend = TRUE, legend = "bottom")
 
 ```
 
-{{< figure src="/img/boxplot.jpeg">}}
+{{< figure src="/img/posts/boxplot.jpeg">}}
 
 
 
