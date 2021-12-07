@@ -8,38 +8,61 @@ summary: Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, eius.
 tags:
 - Demo
 - robotics
-title: Plotting with R
+title: Downloading and plotting spanish temperatures with R
 ---
 
-# Differences between crop and mask in R
+#  Downloading and plotting spanish temperatures with R
 
 ```{r, warning=FALSE}
-# load packages
-library(readxl)
+library(reshape2)
+library(tidyverse)
 library(PupillometryR)
+library(climaemet)
+library(ggpubr)
 
-albarracin_MICRO_results <- read_excel("T:/GITHUB_REP/Mean_Max_temp_transects_albarracin_MICRO_results.xlsx")
-albarracin_CHELSA_results <- read_excel("T:/GITHUB_REP/Mean_Max_temp_transects_CHELSA_results.xlsx")
-albarracin_MICRO_results <- na.omit(albarracin_MICRO_results[3:10])
-albarracin_MICRO_results <- left_join(albarracin_MICRO_results, albarracin_CHELSA_results, "CODIGO")
-albarracin_MICRO_results <- albarracin_MICRO_results[-10]
-albarracin_MICRO_results <-rename(albarracin_MICRO_results, "Mean 1980 1989"=mean_1980_1989.x ,"Mean 2009 2018" = mean_2009_2018.x )
-```
+aemet_api_key("YOUR API", 
+              install = TRUE)
+
+stations <- aemet_stations() 
+
+station <- "2462" 
+
+data_monthly <- tibble(monht = c(seq(1, 12, 1)))
+for (y in c(1960, 2020)){
+  data <- aemet_monthly_clim(station, year = y)
+  data <- select(data, tm_max)
+  names(data) <- paste0("Y_",y)
+  data_monthly <- cbind(data_monthly, data[c(1:12),])
+}
 
 
-```{r, warning=FALSE}
-
-kk<- melt(albarracin_MICRO_results)
-micro <- na.omit(filter(kk, kk$variable == "Mean 1980 1989" | kk$variable == "Mean 2009 2018"))
-chelsa <- na.omit(filter(kk, kk$variable == "mean_1980_1989.y" | kk$variable == "mean_2009_2018.y" ))
-micro_plot <- ggplot(micro, aes(x= variable, y =value, fill=variable))+
-  geom_flat_violin(aes(fill = variable),position = position_nudge(x = .1, y = 0), trim = FALSE, alpha = .5, colour = NA)+
-  geom_point(aes(x = variable, y = value, colour = variable),position = position_jitter(width = .2), size = 2, shape = 20)+
-  geom_boxplot(aes(x= variable, y =value, fill=variable),outlier.shape = NA, alpha = .5, width = .1, colour = "black")+
-  scale_y_continuous("ºC",c(10,15,20,25,30), limits = c(10,25))+
-  scale_colour_brewer(palette = "Dark2")+
-  scale_fill_brewer(palette = "Dark2")+
-  ggtitle("Microclima data")+
+plot_data <- melt(data_monthly[,c(2,3)])
+navacerrada <- ggplot(plot_data,
+                      aes(
+                        x = variable,
+                        y = value,
+                        fill = variable,
+                        colour = variable
+                      )) +
+  geom_flat_violin(
+    position = position_nudge(x = .1, y = 0),
+    trim = FALSE,
+    alpha = 0.5,
+    colour = NA
+  ) +
+  geom_point(position = position_jitter(width = .2),
+             size = 2,
+             shape = 20) +
+  geom_boxplot(
+    outlier.shape = NA,
+    alpha = .5,
+    width = .1,
+    colour = "black"
+  ) +
+  scale_y_continuous("ºC",c(-10,-5,0,5,10,15,20,25,30,35), limits = c(-10,35))+
+  scale_colour_brewer(palette = "Dark2") +
+  scale_fill_brewer(palette = "Dark2") +
+  ggtitle("Navacerrada") +
   theme(
     legend.title = element_blank(),
     axis.title.x = element_blank(),
@@ -48,29 +71,59 @@ micro_plot <- ggplot(micro, aes(x= variable, y =value, fill=variable))+
     axis.ticks.x = element_blank()
   )
 
-chelsa_plot <- ggplot(chelsa, aes(x= variable, y =value, fill=variable)) +
-  geom_flat_violin(aes(fill = variable),position = position_nudge(x = .1, y = 0), trim = FALSE, alpha = .5, colour = NA)+
-  geom_point(aes(x = variable, y = value, colour = variable),position = position_jitter(width = .2), size = 2, shape = 20)+
-  geom_boxplot(aes(x= variable, y =value, fill=variable),outlier.shape = NA, alpha = .5, width = .1, colour = "black")+
-  scale_y_continuous("ºC",c(10,15,20,25,30), limits = c(10,25))+
-  scale_colour_brewer(palette = "Dark2")+
-  scale_fill_brewer(palette = "Dark2")+
-  ggtitle("CHELSA data")+
+station <- "5973" 
+
+data_monthly <- tibble(monht = c(seq(1, 12, 1)))
+for (y in c(1960, 2020)){
+  data <- aemet_monthly_clim(station, year = y)
+  data <- select(data, tm_max)
+  names(data) <- paste0("Y_",y)
+  data_monthly <- cbind(data_monthly, data[c(1:12),])
+}
+
+
+plot_data <- melt(data_monthly[,c(2,3)])
+cadiz <-
+  ggplot(plot_data,
+         aes(
+           x = variable,
+           y = value,
+           fill = variable,
+           colour = variable
+         )) +
+  geom_flat_violin(
+    position = position_nudge(x = .1, y = 0),
+    trim = FALSE,
+    alpha = 0.5,
+    colour = NA
+  ) +
+  geom_point(position = position_jitter(width = .2),
+             size = 2,
+             shape = 20) +
+  geom_boxplot(
+    outlier.shape = NA,
+    alpha = .5,
+    width = .1,
+    colour = "black"
+  ) +
+  scale_y_continuous("ºC",c(-10,-5,0,5,10,15,20,25,30,35), limits = c(-10,35))+
+  scale_colour_brewer(palette = "Dark2") +
+  scale_fill_brewer(palette = "Dark2") +
+  ggtitle("Cadiz") +
   theme(
-    legend.text = element_blank(),
-    legend.position = "none",
+    legend.title = element_blank(),
     axis.title.x = element_blank(),
     axis.text.x = element_blank(),
     axis.title.y = element_blank(),
     axis.ticks.x = element_blank()
   )
 
+ggarrange(navacerrada, cadiz, common.legend = TRUE, legend = "bottom")
 
-ggarrange(micro_plot, chelsa_plot, common.legend = TRUE, legend = "bottom")
 
 ```
 
-{{< figure src="/img/canary.png">}}
+{{< figure src="/img/boxplot.jpeg">}}
 
 
 
