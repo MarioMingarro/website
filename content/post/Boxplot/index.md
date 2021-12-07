@@ -4,15 +4,17 @@ external_link: null
 image:
   caption: Canary
   focal_point: Smart
-summary: Learn about R
+summary: The idea of this post is to give an idea of three important tasks in any analysis of climate variables. i) obtaining the data from a reliable source, ii) cleaning those data and selecting the variables that may be of interest and iii) visualising those data.
+Here I try to present a clean and replicable code. Of course, like any script, it can be improved. I hope you like it.
 tags:
-- Demo
-- robotics
-title: Downloading and plotting spanish temperatures with R
+- Plot
+- Climate
+title: Downloading and plotting Spanish temperatures with R
 ---
 
 The idea of this post is to give an idea of three important tasks in any analysis of climate variables. i) obtaining the data from a reliable source, ii) cleaning those data and selecting the variables that may be of interest and iii) visualising those data.
 Here I try to present a clean and replicable code. Of course, like any script, it can be improved. I hope you like it.
+
 
 Load R packages
 ```{r, warning=FALSE}
@@ -32,7 +34,8 @@ See all (of this package) AEMET stations
 ```{r, warning=FALSE}
 stations <- aemet_stations() 
 ```
-Download monthly mean of the maximun tmperatures using climaemet (see https://ropenspain.github.io/climaemet/index.html)
+Download monthly mean of the maximun temperatures using climaemet (See https://ropenspain.github.io/climaemet/index.html)
+
 
 Here we will work with two very different weather stations, one in Cadiz (0 masl) and one in Navacerrada (1894 masl) to try to understand if temperature changes are homogeneous in different places.
 ```{r, warning=FALSE}
@@ -140,7 +143,10 @@ ggarrange(navacerrada, cadiz, common.legend = TRUE, legend = "bottom")
 
 
 ```
-
+Here you can see the final result. As you can see the temperature changes have not followed the same pattern
+...
+      Think about it
+                      ...
 {{< figure src="/img/posts/boxplot.jpeg">}}
 
 
