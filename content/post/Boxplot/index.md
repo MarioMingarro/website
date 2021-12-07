@@ -33,6 +33,8 @@ See all (of this package) AEMET stations
 ```{r, warning=FALSE}
 stations <- aemet_stations() 
 ```
+{{< figure src="/img/posts/stations.jpg">}}
+
 Download monthly mean of the maximun temperatures using climaemet (See https://ropenspain.github.io/climaemet/index.html)
 
 
