@@ -11,8 +11,10 @@ tags:
 title: Downloading and plotting spanish temperatures with R
 ---
 
-#  Downloading and plotting spanish temperatures with R
+The idea of this post is to give an idea of three important tasks in any analysis of climate variables. i) obtaining the data from a reliable source, ii) cleaning those data and selecting the variables that may be of interest and iii) visualising those data.
+Here I try to present a clean and replicable code. Of course, like any script, it can be improved. I hope you like it.
 
+Load R packages
 ```{r, warning=FALSE}
 library(reshape2)
 library(tidyverse)
@@ -20,26 +22,49 @@ library(PupillometryR)
 library(climaemet)
 library(ggpubr)
 ```
-Download monthly mean of the maximun tmperatures using climaemet (see https://ropenspain.github.io/climaemet/index.html)
+Get api key from AEMET (Spanish metereological service)
 ```{r, warning=FALSE}
+browseURL("https://opendata.aemet.es/centrodedescargas/obtencionAPIKey")
 aemet_api_key("YOUR API", 
               install = TRUE)
-
+```
+See all (of this package) AEMET stations
+```{r, warning=FALSE}
 stations <- aemet_stations() 
+```
+Download monthly mean of the maximun tmperatures using climaemet (see https://ropenspain.github.io/climaemet/index.html)
+
+Here we will work with two very different weather stations, one in Cadiz (0 masl) and one in Navacerrada (1894 masl) to try to understand if temperature changes are homogeneous in different places.
+```{r, warning=FALSE}
 
 station <- "2462" 
 
-data_monthly <- tibble(monht = c(seq(1, 12, 1)))
+navacerrada_data <- tibble(monht = c(seq(1, 12, 1)))           # Create an empty data frame to store the data we are interested in.
+for (y in c(1960, 2020)){                                      # Loop to select different years to see temperature differences
+  data <- aemet_monthly_clim(station, year = y)                # Use the climemet function to download the data.
+  data <- select(data, tm_max)                                 # Select the variable of interest. Monthly average of maximum temperatures
+  names(data) <- paste0("Y_",y)                                # Rename variables to call them Y_1960 and Y_2020
+  navacerrada_data <- cbind(navacerrada_data, data[c(1:12),])  # Join the downloaded data with the previously generated dataframe by columns.
+}
+
+navacerrada_data <- melt(navacerrada_data[,c(2,3)])            # Change the structure of the data in order to be able to graph it.
+
+station <- "5973" 
+
+cadiz_monthly <- tibble(monht = c(seq(1, 12, 1)))
 for (y in c(1960, 2020)){
   data <- aemet_monthly_clim(station, year = y)
   data <- select(data, tm_max)
   names(data) <- paste0("Y_",y)
-  data_monthly <- cbind(data_monthly, data[c(1:12),])
+  cadiz_monthly <- cbind(cadiz_monthly, data[c(1:12),])
 }
 
 
-plot_data <- melt(data_monthly[,c(2,3)])
-navacerrada <- ggplot(plot_data,
+cadiz_data <- melt(cadiz_monthly[,c(2,3)])
+```
+After generating and cleaning the data, it is time for the long awaited moment. Let's plot them with a bit of "statistical" art.
+```{r, warning=FALSE}
+navacerrada <- ggplot(navacerrada_data,
                       aes(
                         x = variable,
                         y = value,
@@ -73,20 +98,9 @@ navacerrada <- ggplot(plot_data,
     axis.ticks.x = element_blank()
   )
 
-station <- "5973" 
 
-data_monthly <- tibble(monht = c(seq(1, 12, 1)))
-for (y in c(1960, 2020)){
-  data <- aemet_monthly_clim(station, year = y)
-  data <- select(data, tm_max)
-  names(data) <- paste0("Y_",y)
-  data_monthly <- cbind(data_monthly, data[c(1:12),])
-}
-
-
-plot_data <- melt(data_monthly[,c(2,3)])
 cadiz <-
-  ggplot(plot_data,
+  ggplot(cadiz_data,
          aes(
            x = variable,
            y = value,
