@@ -7,8 +7,6 @@ image:
 summary: The idea of this post is to give an idea of three important tasks in any analysis of climate variables. i) obtaining the data from a reliable source, ii) cleaning those data and selecting the variables that may be of interest and iii) visualising those data.
 Here I try to present a clean and replicable code. Of course, like any script, it can be improved. I hope you like it.
 tags:
-- Plot
-- Climate
 title: Downloading and plotting Spanish temperatures with R
 ---
 
