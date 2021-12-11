@@ -58,8 +58,7 @@ phone = "914111328 ext 981372"
 address = "C. de José Gutiérrez Abascal, 2, 28006 Madrid, España"
 
 # Office hours: use `<br>` to insert a line break, or set to "" to remove office hours
-office_hours = """Monday 10:00 to 13:00<br>
-                  Wednesday 09:00 to 10:00"""
+office_hours = "Always"
 
 # Enter an optional link for booking appointments (e.g. calendly.com).
 appointment_url = "https://calendly.com"
@@ -67,7 +66,7 @@ appointment_url = "https://calendly.com"
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 contact_links = [
-  {icon = "twitter", icon_pack = "fab", name = "DM Me", link = "https://twitter.com/Twitter"},
+  {icon = "twitter", icon_pack = "fab", name = "DM Me", link = "https://twitter.com/minglop"},
   {icon = "skype", icon_pack = "fab", name = "Skype Me", link = "skype:echo123?call"},
   # {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://telegram.me/@Telegram"},
   ]
