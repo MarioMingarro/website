@@ -61,7 +61,7 @@ address = "C. de José Gutiérrez Abascal, 2, 28006 Madrid, España"
 office_hours = "Always"
 
 # Enter an optional link for booking appointments (e.g. calendly.com).
-appointment_url = "https://calendly.com"
+appointment_url = "mario_mingarro@mncn.csic.es"
 
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
